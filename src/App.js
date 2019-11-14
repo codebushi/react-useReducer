@@ -1,5 +1,4 @@
 import React, { useReducer, useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 function reducer(reducerCount) {
@@ -12,7 +11,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <h1>{state.title}</h1> */}
         <p>{count}</p>
         <p>
           <button
