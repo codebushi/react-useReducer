@@ -1,36 +1,37 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import "./App.css";
 
-function reducer(reducerCount) {
-  return reducerCount + 1;
+function reducer(state, action) {
+  if (action === "add") {
+    return state + 1;
+  }
+  return state - 1;
 }
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [reducerCount, dispatch] = useReducer(reducer, 0);
+  const [state, dispatch] = useReducer(reducer, 0);
   return (
     <div className="App">
       <header className="App-header">
-        <p>{count}</p>
+        <p>{state}</p>
         <p>
           <button
             type="button"
             onClick={() => {
-              setCount(count + 1);
-            }}
-          >
-            Add Count
-          </button>
-        </p>
-        <p>{reducerCount}</p>
-        <p>
-          <button
-            type="button"
-            onClick={() => {
-              dispatch();
+              dispatch("add");
             }}
           >
             Add Reducer Count
+          </button>
+        </p>
+        <p>
+          <button
+            type="button"
+            onClick={() => {
+              dispatch("subtract");
+            }}
+          >
+            Subtract Reducer Count
           </button>
         </p>
       </header>
