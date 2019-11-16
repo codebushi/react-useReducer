@@ -1,39 +1,57 @@
 import React, { useReducer } from "react";
 import "./App.css";
 
+const initialState = {
+  title: "Hello World",
+  count: 0
+};
+
 function reducer(state, action) {
-  if (action === "add") {
-    return state + 1;
+  console.log(action);
+  if (action.type === "add") {
+    return {
+      ...state,
+      count: state.count + 1
+    };
   }
-  return state - 1;
+  if (action.type === "edit-title") {
+    return {
+      ...state,
+      title: action.title
+    };
+  }
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, 0);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  console.log(state);
   return (
     <div className="App">
       <header className="App-header">
-        <p>{state}</p>
-        <p>
-          <button
-            type="button"
-            onClick={() => {
-              dispatch("add");
+        <h1>{state.title}</h1>
+        <div>
+          <input
+            type="text"
+            value={state.title}
+            onChange={e => {
+              dispatch({
+                type: "edit-title",
+                title: e.target.value
+              });
             }}
-          >
-            Add Reducer Count
-          </button>
-        </p>
-        <p>
-          <button
-            type="button"
-            onClick={() => {
-              dispatch("subtract");
-            }}
-          >
-            Subtract Reducer Count
-          </button>
-        </p>
+          />
+        </div>
+        <p>{state.count}</p>
+        <button
+          type="button"
+          onClick={() => {
+            dispatch({
+              type: "add"
+            });
+          }}
+        >
+          Add Reducer Count
+        </button>
       </header>
     </div>
   );
