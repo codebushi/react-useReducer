@@ -45,7 +45,7 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   console.log(state);
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos")
+    fetch("https://jsonplaceholder.typicode.com/users")
       .then(res => res.json())
       .then(data => {
         dispatch({ type: "SET_DATA", data });
@@ -56,11 +56,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         {state.loading && <p>LOADING...</p>}
-        {state.data &&
-          state.data.map(todo => <p key={todo.id}>{todo.title}</p>)}
+        {state.data && state.data.map(user => <p key={user.id}>{user.name}</p>)}
         <h1>{state.title}</h1>
         <div>
           <input
+            style={{ fontSize: 16, padding: 6 }}
             type="text"
             value={state.title}
             onChange={e => {
@@ -71,27 +71,29 @@ function App() {
             }}
           />
         </div>
-        <p>{state.count}</p>
-        <button
-          type="button"
-          onClick={() => {
-            dispatch({
-              type: "ADD"
-            });
-          }}
-        >
-          Add Reducer Count
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            dispatch({
-              type: "SUBTRACT"
-            });
-          }}
-        >
-          Subtract Reducer Count
-        </button>
+        <div style={{ borderTop: "1px solid #fff", margin: "30px 0" }}>
+          <p>{state.count}</p>
+          <button
+            type="button"
+            onClick={() => {
+              dispatch({
+                type: "ADD"
+              });
+            }}
+          >
+            Add Reducer Count
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              dispatch({
+                type: "SUBTRACT"
+              });
+            }}
+          >
+            Subtract Reducer Count
+          </button>
+        </div>
       </header>
     </div>
   );
